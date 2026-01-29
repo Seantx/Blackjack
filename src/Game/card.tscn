@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://jsc55i8kmjl6"]
+
+[ext_resource type="Script" uid="uid://sj8l1xqgfjcw" path="res://src/Entities/card.gd" id="1_wcxm3"]
+
+[node name="Card" type="Node2D" node_paths=PackedStringArray("face", "suit")]
+script = ExtResource("1_wcxm3")
+face = NodePath("Control/Label")
+suit = NodePath("Control/Label2")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_right = 97.0
+offset_bottom = 114.0
+
+[node name="Label" type="Label" parent="Control"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+
+[node name="Label2" type="Label" parent="Control"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 2.0
+offset_right = 96.0
+offset_bottom = 25.0
+text = "5"
