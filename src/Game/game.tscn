@@ -5,4 +5,27 @@
 [node name="game" type="Node2D"]
 script = ExtResource("1_60cvd")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="DealerHand" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(375, 150)
+
+[node name="PlayerHand" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(378, 529)
+
+[node name="Bust" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Bust"]
+offset_right = 1151.0
+offset_bottom = 644.0
+color = Color(1, 1, 1, 0.35686275)
+
+[node name="Label" type="Label" parent="Bust"]
+modulate = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
+offset_right = 1152.0
+offset_bottom = 643.0
+text = "BUST!"
+horizontal_alignment = 1
+vertical_alignment = 1

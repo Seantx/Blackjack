@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" uid="uid://sj8l1xqgfjcw" path="res://src/Entities/card.gd" id="1_wcxm3"]
 
-[node name="Card" type="Node2D" node_paths=PackedStringArray("face", "suit")]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("suit_label")]
 script = ExtResource("1_wcxm3")
-face = NodePath("Control/Label")
-suit = NodePath("Control/Label2")
+suit_label = NodePath("Control/SuitLabel")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -18,18 +17,19 @@ layout_mode = 0
 offset_right = 97.0
 offset_bottom = 114.0
 
-[node name="Label" type="Label" parent="Control"]
+[node name="FaceLabel" type="Label" parent="Control"]
 modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.021434637, 0.021434635, 0.021434633, 1)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "5"
+text = "2"
 
-[node name="Label2" type="Label" parent="Control"]
+[node name="SuitLabel" type="Label" parent="Control"]
+unique_name_in_owner = true
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 56.0
 offset_top = 2.0
 offset_right = 96.0
 offset_bottom = 25.0
-text = "5"

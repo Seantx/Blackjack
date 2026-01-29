@@ -1,5 +1,5 @@
 extends Node
-class_name Deck
+class_name NodeDeck
 
 #var cards:Array[Card] = []
 var cards : Array
@@ -9,13 +9,10 @@ func _init() -> void:
 	for suit in 4:   # suit
 		for value in range(1, 14): 
 			
-			var new_card = [suit,value]
-			cards.append(new_card)
-			
-			#var card = Card.new() 
-			#card.face_value = value
-			#card.suit_value = suit
-			#cards.append(card) 
+			var card = Card.new() 
+			card.face_value = value
+			card.suit_value = suit
+			cards.append(card) 
 	cards.shuffle()
 	#for card in my_deck:
 		#print(card.face_value, ' ', card.suit_value)

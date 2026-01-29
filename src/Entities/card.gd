@@ -4,9 +4,17 @@ class_name Card
 @export var face_value: int
 @export var suit_value: int
 
-@export var face: Label
-@export var suit: Label
+@onready var face_label: Label
+@export var suit_label: Label
 
-func _init(suit, value) -> void:
-	print(suit)
-	print(value)
+var suit_set: int
+var face_set: int
+
+#func _init(suit,value) -> void:
+	#suit_set = suit
+	#face_set = value
+#
+#func _ready() -> void:
+	#face_label.text = str(face_set)
+	#suit_label.text = str(suit_set)
+	#print(face_set)
