@@ -2,8 +2,30 @@
 
 [ext_resource type="Script" uid="uid://llye5oq0uslg" path="res://src/Game/game.gd" id="1_60cvd"]
 
-[node name="game" type="Node2D"]
+[node name="game" type="Node2D" node_paths=PackedStringArray("PlayerMoney", "DealerMoney", "PlayerScore", "DealerScore")]
 script = ExtResource("1_60cvd")
+PlayerMoney = NodePath("HUD/PlayerMoney")
+DealerMoney = NodePath("HUD/DealerMoney")
+PlayerScore = NodePath("HUD/PlayerScore")
+DealerScore = NodePath("HUD/DealerScore")
+
+[node name="DealerBust" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="DealerBust"]
+offset_right = 1151.0
+offset_bottom = 644.0
+color = Color(1, 1, 1, 0.35686275)
+
+[node name="Label" type="Label" parent="DealerBust"]
+modulate = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
+offset_right = 1152.0
+offset_bottom = 643.0
+text = "DEALER BUST!
+YOU WIN!!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DealerHand" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -29,3 +51,48 @@ offset_bottom = 643.0
 text = "BUST!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 287.0
+offset_top = 516.0
+offset_right = 327.0
+offset_bottom = 548.0
+
+[node name="PlayerMoney" type="Label" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+
+[node name="DealerMoney" type="Label" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.778
+anchor_top = -12.330001
+offset_left = 64.119995
+offset_top = 24.560028
+offset_right = -7.0
+offset_bottom = -347.0
+text = "5"
+
+[node name="PlayerScore" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = -11.0
+offset_top = 77.0
+offset_right = 6.0
+offset_bottom = 100.0
+
+[node name="DealerScore" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = -61.0
+offset_top = -282.0
+offset_right = -21.0
+offset_bottom = -259.0
+
+[node name="Cards" type="Node" parent="."]
