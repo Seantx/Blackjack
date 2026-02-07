@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dqpkm1wnh8vvk"
+valid=false
+
+[deps]
+
+source_file="res://PNG/Cards (small)/_cards.csv"
+
+[params]
+
+compress=true
+delimiter=0

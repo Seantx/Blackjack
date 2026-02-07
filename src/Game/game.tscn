@@ -1,31 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://do84qv3oya657"]
+[gd_scene load_steps=5 format=3 uid="uid://do84qv3oya657"]
 
 [ext_resource type="Script" uid="uid://llye5oq0uslg" path="res://src/Game/game.gd" id="1_60cvd"]
+[ext_resource type="PackedScene" uid="uid://cf1spy0bwkx5i" path="res://src/Game/card_test.tscn" id="2_k6qo2"]
 
-[node name="game" type="Node2D" node_paths=PackedStringArray("PlayerMoney", "DealerMoney", "PlayerScore", "DealerScore")]
+[sub_resource type="SystemFont" id="SystemFont_60cvd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_60cvd"]
+font = SubResource("SystemFont_60cvd")
+font_size = 50
+font_color = Color(0.47058824, 0.8509804, 0.08235294, 1)
+
+[node name="game" type="Node2D" node_paths=PackedStringArray("PlayerMoney", "DealerMoney", "PlayerScore", "DealerScore", "WagerAmt")]
 script = ExtResource("1_60cvd")
 PlayerMoney = NodePath("HUD/PlayerMoney")
 DealerMoney = NodePath("HUD/DealerMoney")
 PlayerScore = NodePath("HUD/PlayerScore")
 DealerScore = NodePath("HUD/DealerScore")
-
-[node name="DealerBust" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="DealerBust"]
-offset_right = 1151.0
-offset_bottom = 644.0
-color = Color(1, 1, 1, 0.35686275)
-
-[node name="Label" type="Label" parent="DealerBust"]
-modulate = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
-offset_right = 1152.0
-offset_bottom = 643.0
-text = "DEALER BUST!
-YOU WIN!!"
-horizontal_alignment = 1
-vertical_alignment = 1
+WagerAmt = NodePath("HUD/WagerAmt")
 
 [node name="DealerHand" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -33,38 +24,48 @@ position = Vector2(375, 150)
 
 [node name="PlayerHand" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(378, 529)
+position = Vector2(375, 363)
 
-[node name="Bust" type="CanvasLayer" parent="."]
+[node name="ResultScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="Bust"]
+[node name="ColorRect" type="ColorRect" parent="ResultScreen"]
 offset_right = 1151.0
 offset_bottom = 644.0
-color = Color(1, 1, 1, 0.35686275)
+mouse_filter = 2
+color = Color(0.15487596, 0.154876, 0.15487596, 0.7294118)
 
-[node name="Label" type="Label" parent="Bust"]
-modulate = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
+[node name="Label" type="Label" parent="ResultScreen"]
 offset_right = 1152.0
 offset_bottom = 643.0
 text = "BUST!"
+label_settings = SubResource("LabelSettings_60cvd")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NewRound" type="Button" parent="ResultScreen"]
+offset_left = 514.0
+offset_top = 380.0
+offset_right = 622.0
+offset_bottom = 411.0
+text = "NEW ROUND"
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 287.0
+offset_left = 298.0
 offset_top = 516.0
-offset_right = 327.0
+offset_right = 338.0
 offset_bottom = 548.0
 
 [node name="PlayerMoney" type="Label" parent="HUD"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 2.0
+offset_top = -151.0
+offset_right = 42.0
+offset_bottom = -128.0
 text = "5"
 
 [node name="DealerMoney" type="Label" parent="HUD"]
@@ -73,26 +74,85 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = -2.778
 anchor_top = -12.330001
-offset_left = 64.119995
-offset_top = 24.560028
-offset_right = -7.0
-offset_bottom = -347.0
+offset_left = 111.12
+offset_top = 17.560028
+offset_right = 40.000008
+offset_bottom = -354.0
+text = "5"
+
+[node name="WagerAmt" type="Label" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
 text = "5"
 
 [node name="PlayerScore" type="Label" parent="HUD"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
-offset_left = -11.0
-offset_top = 77.0
-offset_right = 6.0
-offset_bottom = 100.0
+offset_left = 2.0
+offset_top = -108.0
+offset_right = 19.0
+offset_bottom = -85.0
+text = "51"
 
 [node name="DealerScore" type="Label" parent="HUD"]
 layout_mode = 0
-offset_left = -61.0
-offset_top = -282.0
-offset_right = -21.0
-offset_bottom = -259.0
+offset_top = -343.0
+offset_right = 40.0
+offset_bottom = -320.0
+text = "21"
 
 [node name="Cards" type="Node" parent="."]
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RaiseBet" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 479.0
+offset_right = 266.0
+offset_bottom = 510.0
+text = "Bet MORE"
+
+[node name="LowerBet" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 515.0
+offset_right = 267.0
+offset_bottom = 546.0
+text = "Bet less :("
+
+[node name="Hit" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 408.0
+offset_right = 247.0
+offset_bottom = 439.0
+text = "HIT"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Stand" type="Button" parent="GUI"]
+layout_mode = 0
+offset_left = 191.0
+offset_top = 363.0
+offset_right = 252.0
+offset_bottom = 394.0
+text = "STAND"
+
+[node name="CardTest" parent="." instance=ExtResource("2_k6qo2")]
+position = Vector2(841, 226)
+
+[node name="Deck" type="Node" parent="."]
+
+[connection signal="pressed" from="ResultScreen/NewRound" to="." method="_on_new_round_pressed"]
+[connection signal="pressed" from="GUI/RaiseBet" to="." method="_on_raise_bet_pressed"]
+[connection signal="pressed" from="GUI/LowerBet" to="." method="_on_lower_bet_pressed"]
+[connection signal="pressed" from="GUI/Hit" to="." method="_on_hit_pressed"]
+[connection signal="pressed" from="GUI/Stand" to="." method="_on_stand_pressed"]

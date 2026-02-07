@@ -1,29 +1,54 @@
-[gd_scene load_steps=2 format=3 uid="uid://jsc55i8kmjl6"]
+[gd_scene load_steps=6 format=3 uid="uid://jsc55i8kmjl6"]
 
 [ext_resource type="Script" uid="uid://sj8l1xqgfjcw" path="res://src/Entities/card.gd" id="1_wcxm3"]
+[ext_resource type="Texture2D" uid="uid://cq116bx6l2co5" path="res://Tilesheet/cardsLarge_tilemap.png" id="2_0p4m3"]
+[ext_resource type="Resource" uid="uid://bxfrqdfyu4qw7" path="res://src/CardResources/s2.tres" id="2_ext67"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ext67"]
+atlas = ExtResource("2_0p4m3")
+region = Rect2(11, 2, 42, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wcxm3"]
+size = Vector2(80, 117)
 
 [node name="Card" type="Node2D" node_paths=PackedStringArray("suit_label")]
 script = ExtResource("1_wcxm3")
 suit_label = NodePath("Control/SuitLabel")
+card_definition = ExtResource("2_ext67")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_ext67")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -49.0
+offset_top = -56.0
+offset_right = -9.0
+offset_bottom = -16.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 layout_mode = 0
 offset_right = 97.0
 offset_bottom = 114.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+metadata/_edit_use_anchors_ = true
 
 [node name="FaceLabel" type="Label" parent="Control"]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0.021434637, 0.021434635, 0.021434633, 1)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_right = 0.35
 offset_right = 40.0
 offset_bottom = 23.0
 text = "2"
+metadata/_edit_use_anchors_ = true
 
 [node name="SuitLabel" type="Label" parent="Control"]
 unique_name_in_owner = true
@@ -33,3 +58,14 @@ offset_left = 56.0
 offset_top = 2.0
 offset_right = 96.0
 offset_bottom = 25.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="Control"]
+position = Vector2(-1, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Area2D"]
+position = Vector2(50, 56.5)
+shape = SubResource("RectangleShape2D_wcxm3")
+
+[connection signal="mouse_entered" from="Control/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Area2D" to="." method="_on_area_2d_mouse_exited"]
