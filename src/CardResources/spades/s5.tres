@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=5 format=3 uid="uid://ddh8ilsjgofwu"]
+
+[ext_resource type="Texture2D" uid="uid://cgrue1dijgk7l" path="res://PNG/Cards (large)/card_back.png" id="1_ik25t"]
+[ext_resource type="Script" uid="uid://4knqdrxchiw2" path="res://src/Definitions/CardDefinition.gd" id="2_rkn8r"]
+[ext_resource type="Texture2D" uid="uid://cq116bx6l2co5" path="res://Tilesheet/cardsLarge_tilemap.png" id="3_n37rb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvw72"]
+atlas = ExtResource("3_n37rb")
+region = Rect2(271, 197, 42, 60)
+
+[resource]
+script = ExtResource("2_rkn8r")
+suit_value = 2
+face_value = 5
+texture = SubResource("AtlasTexture_pvw72")
+back_texture = ExtResource("1_ik25t")
+power = 5
+size = 5
+metadata/_custom_type_script = "uid://4knqdrxchiw2"

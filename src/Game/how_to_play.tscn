@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdxjof471tgem"]
+
+[ext_resource type="Script" uid="uid://bj5hhvi54c1gm" path="res://src/Game/how_to_play.gd" id="1_g0446"]
+[ext_resource type="Texture2D" uid="uid://b17lvw0of6in6" path="res://Aseprite/gameplay_screen.png" id="2_uvb5p"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g0446")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uvb5p")
+stretch_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 630.0
+offset_top = 12.0
+offset_right = 1145.0
+offset_bottom = 552.0
+text = "It's like blackjack
+
+Press stand to pass to the dealer
+
+Press Hit if you want another card
+
+Press Raise to raise your bet
+
+You win or lose depending on how much is wagered"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 586.0
+offset_right = 576.0
+offset_bottom = 617.0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.45490196, 1)
+theme_override_colors/icon_normal_color = Color(0.12156863, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 0.09803922, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "Return to Main Menu
+"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

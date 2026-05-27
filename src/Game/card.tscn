@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sj8l1xqgfjcw" path="res://src/Entities/card.gd" id="1_wcxm3"]
 [ext_resource type="Texture2D" uid="uid://cq116bx6l2co5" path="res://Tilesheet/cardsLarge_tilemap.png" id="2_0p4m3"]
-[ext_resource type="Resource" uid="uid://bxfrqdfyu4qw7" path="res://src/CardResources/s2.tres" id="2_ext67"]
+[ext_resource type="Resource" uid="uid://bxfrqdfyu4qw7" path="res://src/CardResources/spades/s2.tres" id="2_ext67"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ext67"]
 atlas = ExtResource("2_0p4m3")
@@ -17,6 +17,8 @@ suit_label = NodePath("Control/SuitLabel")
 card_definition = ExtResource("2_ext67")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.96035105, 0.96035105, 0.96035093, 1)
+self_modulate = Color(1, 1, 0, 1)
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_ext67")
 

@@ -1,11 +1,8 @@
 extends Node2D
 class_name Game
 
-@export var PlayerMoney:Label
-@export var DealerMoney:Label
-@export var PlayerScore:Label
-@export var DealerScore:Label
-@export var WagerAmt:Label
+@export var CurrentMoney:Label
+@export var WagerAmount:Label
 
 @onready var deck: Deck
 @onready var nodedeck: NodeDeck
@@ -24,46 +21,62 @@ var push = false
 var round_calc = false
 var player_cards_dealt = 0
 var dealer_cards_dealt = 0
-var cards_dealt = player_cards_dealt + dealer_cards_dealt
+var cards_dealt = 0
 var player_total = 0
 var dealer_total = 0
 var round_over: bool = false
 var hand_size = 2
+var cards_in_deck : Array
 
-var player_money = 5
+var player_money = PlayerInventory.money
 var dealer_money = 5
 var wager_amt = 1
 var resultscreen
 var result : String
-var card_back = preload('res://PNG/Cards (large)/card_back.png')
+var weight = 4
+var fulldeck
+#var card_back = preload('res://PNG/Cards (large)/card_back.png')
 
 func _ready() -> void:
-	resultscreen = get_node("ResultScreen/Label")
+	resultscreen = get_node("ResultScreen/VBoxContainer/RoundResult")
+	
+	var player_hand = get_node("Phand")
+	WagerAmount.text = str("Wager Amount: \n$",wager_amt)
+	CurrentMoney.text = str("Current Money: \n$",PlayerInventory.money)
+	WagerAmount.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	CurrentMoney.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	Signalbus.connect("hit", hit)
+	Signalbus.connect("stand", stand)
+	
 	print('leggo')
-	#deck = Deck.new()
+	
 	create_deck()
 	print('power: ', $Deck.get_child(0).power)
 	starter_deal()
 	player_turn = true
-	DealerMoney.text = str("$",dealer_money)
-	PlayerMoney.text = str("$",player_money) 
-	WagerAmt.text = str("$",wager_amt)
+	#DealerMoney.text = str("$",DealerInventory.money)
+	#PlayerMoney.text = str("$",player_money) 
+	#WagerAmt.text = str("$",wager_amt)
 
 func create_deck() ->void:
 	var card_test_shell = preload("res://src/Game/card_test.tscn")
-	var card_id = load('res://src/CardResources/s2.tres')
-	for n in range(1,4):
-		#for key in DeckDic.deck_dic:
-			#var card_id = load(DeckDic.deck_dic[key])
-		#var card_id = load('res://src/CardResources/s2.tres')
+	
+	var cards = 0
+	#var card_id = load('res://src/CardResources/s2.tres')
+	for key in DeckDic.deck_dic:
+		var card_id = load(DeckDic.deck_dic[key])
 		var new_card : Card2 = card_test_shell.instantiate()
 		new_card.card_resource = card_id
+		
 		$Deck.add_child(new_card)
-		print('ptest2:  ',new_card.power)
+		new_card.global_position = %DeckLocation.global_position + Vector2(cards, 0)
+	fulldeck = get_node("Deck").get_children()
 
-func _physics_process(_delta: float) -> void:
-	PlayerScore.text = str(player_total)
-	DealerScore.text = str(dealer_total)
+
+func _physics_process(delta: float) -> void:
+	#PlayerScore.text = str(player_total)
+	#DealerScore.text = str(dealer_total)
+	weight += delta
 	if round_over:
 		if Input.is_action_just_pressed('restart'):
 			if %ResultScreen.visible:
@@ -90,6 +103,7 @@ func _physics_process(_delta: float) -> void:
 			if not round_over:
 				round_end()
 
+
 func winner_calc() -> void:
 	if player_total >= 22:
 		player_bust = true
@@ -112,6 +126,17 @@ func winner_calc() -> void:
 	round_calc = true
 
 func starter_deal() -> void:
+	cards_in_deck = $Deck.get_children()
+	print('preshuff',cards_in_deck[0])
+	cards_in_deck.shuffle()
+	print('postshuff',cards_in_deck[0])
+	var n = 0
+	for c in cards_in_deck:
+		c.global_position = %DeckLocation.global_position + Vector2(n*1,0)
+		c.dealt = false
+		n+=1
+		if n>10: n=10
+	
 	for bettors in players:
 		for card in hand_size:
 			deal_card()
@@ -120,43 +145,40 @@ func starter_deal() -> void:
 			else:
 				player_turn = true
 
-	
+
 func deal_card() -> void:
-	var card_def = deck.cards.pop_front()
-	var new_card = card_shell.instantiate()
-		
-	new_card.face_value = card_def[1]
-	new_card.get_node('Control/FaceLabel').text = str(card_def[0])
-	new_card.suit_value = card_def[0]
-	new_card.get_node('Control/SuitLabel').text = str(card_def[1])
-	new_card.get_node('Sprite2D').texture = card_back
+	print(wager_amt)
+	cards_dealt = player_cards_dealt + dealer_cards_dealt
+	var new_card = cards_in_deck[cards_dealt]
+	new_card.dealt = true
 	
 	if player_turn:
-		new_card.global_position = %PlayerHand.global_position + Vector2(player_cards_dealt * 100,0)
+		new_card.global_position = lerp(%DeckLocation.global_position,
+		%PlayerHand.global_position + Vector2(player_cards_dealt * 100,0),1)
+		
 		player_cards_dealt += 1
-		player_total += clamp(new_card.face_value,0,10)
+		player_total += new_card.power
 	else:
 		new_card.global_position = %DealerHand.global_position + Vector2(dealer_cards_dealt * 100,0)
 		dealer_cards_dealt += 1
-		dealer_total += clamp(new_card.face_value,0,10)
-	
-	print(player_total)
-	$Cards.add_child(new_card)
+		dealer_total += new_card.power
 
 
 func round_end() -> void:
 	if not push:
 		if player_bust:
-			player_money = player_money - wager_amt 
-			dealer_money = dealer_money + wager_amt
+			PlayerInventory.money = PlayerInventory.money - wager_amt 
+			DealerInventory.money = DealerInventory.money + wager_amt
 		if dealer_bust:
-			player_money = player_money + wager_amt
-			dealer_money = dealer_money - wager_amt
-	DealerMoney.text = str("$",dealer_money)
-	PlayerMoney.text = str("$",player_money)
+			PlayerInventory.money = PlayerInventory.money + wager_amt
+			DealerInventory.money = DealerInventory.money - wager_amt
+	CurrentMoney.text = str("Current Money: \n$",PlayerInventory.money)
+	Signalbus.round_end.emit()
 	round_over = true
 	if dealer_money == 0:
 		print('you win')
+	for card in fulldeck:
+		card.dealt = false
 
 func new_round() -> void:
 	player_bust = false
@@ -166,22 +188,20 @@ func new_round() -> void:
 	round_calc = false
 	player_cards_dealt = 0
 	dealer_cards_dealt = 0
-	cards_dealt = player_cards_dealt + dealer_cards_dealt
+	cards_dealt = 0
 	player_total = 0
 	dealer_total = 0
-	for n in $Cards.get_children(): n.queue_free()
-	deck = Deck.new()
 	starter_deal()
 	player_turn = true
 	
 
 
-func _on_hit_pressed() -> void:
+func hit() -> void:
 	if player_turn and not round_over:
 		deal_card()
 
 
-func _on_stand_pressed() -> void:
+func stand() -> void:
 	if  player_turn and not round_over:
 			player_turn = false
 
@@ -194,12 +214,17 @@ func _on_new_round_pressed() -> void:
 
 
 func _on_raise_bet_pressed() -> void:
-	if wager_amt < player_money: 
+	if wager_amt <= player_money: 
 		wager_amt += 1
-		WagerAmt.text = str("$",wager_amt)
+		WagerAmount.text = str("Wager Amount: \n$",wager_amt)
+		
 
 
 func _on_lower_bet_pressed() -> void:
 	if wager_amt > 1:
 		wager_amt -= 1
-		WagerAmt.text = str("$",wager_amt)
+		WagerAmount.text = str("Wager Amount: \n$",wager_amt)
+	
+
+func _on_check_shop_pressed() -> void:
+	get_tree().change_scene_to_file("res://src/Game/shop.tscn")

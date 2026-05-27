@@ -11,13 +11,16 @@ config_version=5
 [application]
 
 config/name="DeckOfCards"
-run/main_scene="uid://do84qv3oya657"
+run/main_scene="uid://ceqtbko4kxy32"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-DeckDic="*res://deck_dic.gd"
+DeckDic="*res://src/Game/deck_dic.gd"
+Signalbus="*res://src/Global/signalbus.gd"
+PlayerInventory="*res://src/Global/player_inventory.gd"
+DealerInventory="*res://src/Global/dealer_inventory.gd"
 
 [input]
 

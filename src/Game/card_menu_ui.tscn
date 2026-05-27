@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfhtctunu87qd"]
+
+[ext_resource type="PackedScene" uid="uid://cf1spy0bwkx5i" path="res://src/Game/card_test.tscn" id="1_ungxf"]
+
+[node name="CardMenuUI" type="CenterContainer"]
+custom_minimum_size = Vector2(84, 120)
+offset_right = 84.0
+offset_bottom = 120.0
+
+[node name="CardTest" parent="." instance=ExtResource("1_ungxf")]
+position = Vector2(42, 60)

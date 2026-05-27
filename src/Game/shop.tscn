@@ -1,3 +1,89 @@
-[gd_scene format=3 uid="uid://tsk2pqi1f6cc"]
+[gd_scene load_steps=4 format=3 uid="uid://tsk2pqi1f6cc"]
 
-[node name="Shop" type="Node2D"]
+[ext_resource type="Script" uid="uid://dkwnq0ap5h10f" path="res://src/Game/shop.gd" id="1_b2oed"]
+[ext_resource type="PackedScene" uid="uid://d3icpv62snswn" path="res://src/Game/shop_card.tscn" id="1_xa73d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8xml6"]
+font_size = 50
+font_color = Color(0, 0, 0, 1)
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b2oed")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.13429484, 0.5202505, 0.7024688, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_top = 58.0
+offset_right = 68.0
+offset_bottom = 127.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+text = "SHOP"
+label_settings = SubResource("LabelSettings_8xml6")
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 39.0
+offset_top = -95.0
+offset_right = 159.0
+offset_bottom = -32.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "Leave"
+
+[node name="ShopContent" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -91.0
+offset_right = 148.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cards" type="HBoxContainer" parent="ShopContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ShopCard3" parent="ShopContent/Cards" instance=ExtResource("1_xa73d")]
+layout_mode = 2
+
+[node name="ShopCard2" parent="ShopContent/Cards" instance=ExtResource("1_xa73d")]
+layout_mode = 2
+
+[node name="ShopCard" parent="ShopContent/Cards" instance=ExtResource("1_xa73d")]
+layout_mode = 2
+
+[node name="Relics" type="HBoxContainer" parent="ShopContent"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

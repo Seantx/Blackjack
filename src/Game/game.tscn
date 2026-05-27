@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://do84qv3oya657"]
 
 [ext_resource type="Script" uid="uid://llye5oq0uslg" path="res://src/Game/game.gd" id="1_60cvd"]
-[ext_resource type="PackedScene" uid="uid://cf1spy0bwkx5i" path="res://src/Game/card_test.tscn" id="2_k6qo2"]
+[ext_resource type="PackedScene" uid="uid://cii2vgppx3ewj" path="res://src/Game/game_interface.tscn" id="2_k6qo2"]
 
 [sub_resource type="SystemFont" id="SystemFont_60cvd"]
 
@@ -10,149 +10,114 @@ font = SubResource("SystemFont_60cvd")
 font_size = 50
 font_color = Color(0.47058824, 0.8509804, 0.08235294, 1)
 
-[node name="game" type="Node2D" node_paths=PackedStringArray("PlayerMoney", "DealerMoney", "PlayerScore", "DealerScore", "WagerAmt")]
+[node name="game" type="Node2D" node_paths=PackedStringArray("CurrentMoney", "WagerAmount")]
 script = ExtResource("1_60cvd")
-PlayerMoney = NodePath("HUD/PlayerMoney")
-DealerMoney = NodePath("HUD/DealerMoney")
-PlayerScore = NodePath("HUD/PlayerScore")
-DealerScore = NodePath("HUD/DealerScore")
-WagerAmt = NodePath("HUD/WagerAmt")
+CurrentMoney = NodePath("ResultScreen/VBoxContainer/HBoxContainer/CurrentMoney")
+WagerAmount = NodePath("ResultScreen/VBoxContainer/HBoxContainer/WagerAmount")
 
 [node name="DealerHand" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(375, 150)
+position = Vector2(455, 231)
 
 [node name="PlayerHand" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(375, 363)
+position = Vector2(450, 410)
+
+[node name="Control" parent="." instance=ExtResource("2_k6qo2")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+offset_left = 569.0
+offset_top = 320.0
+offset_right = 569.0
+offset_bottom = 320.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
 
 [node name="ResultScreen" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 visible = false
+follow_viewport_enabled = true
 
 [node name="ColorRect" type="ColorRect" parent="ResultScreen"]
-offset_right = 1151.0
-offset_bottom = 644.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
-color = Color(0.15487596, 0.154876, 0.15487596, 0.7294118)
+color = Color(0.00566115, 0.005661152, 0.005661148, 0.7294118)
 
-[node name="Label" type="Label" parent="ResultScreen"]
-offset_right = 1152.0
-offset_bottom = 643.0
+[node name="VBoxContainer" type="VBoxContainer" parent="ResultScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -69.5
+offset_right = 70.0
+offset_bottom = 69.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoundResult" type="Label" parent="ResultScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "BUST!"
 label_settings = SubResource("LabelSettings_60cvd")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NewRound" type="Button" parent="ResultScreen"]
-offset_left = 514.0
-offset_top = 380.0
-offset_right = 622.0
-offset_bottom = 411.0
+[node name="RaiseBet" type="Button" parent="ResultScreen/VBoxContainer"]
+layout_mode = 2
+text = "Raise"
+
+[node name="LowerBet" type="Button" parent="ResultScreen/VBoxContainer"]
+layout_mode = 2
+text = "Bet less :("
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResultScreen/VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentMoney" type="Label" parent="ResultScreen/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="WagerAmount" type="Label" parent="ResultScreen/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="ReferenceRect" type="ReferenceRect" parent="ResultScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="NewRound" type="Button" parent="ResultScreen/VBoxContainer"]
+layout_mode = 2
 text = "NEW ROUND"
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 298.0
-offset_top = 516.0
-offset_right = 338.0
-offset_bottom = 548.0
-
-[node name="PlayerMoney" type="Label" parent="HUD"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 2.0
-offset_top = -151.0
-offset_right = 42.0
-offset_bottom = -128.0
-text = "5"
-
-[node name="DealerMoney" type="Label" parent="HUD"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -2.778
-anchor_top = -12.330001
-offset_left = 111.12
-offset_top = 17.560028
-offset_right = 40.000008
-offset_bottom = -354.0
-text = "5"
-
-[node name="WagerAmt" type="Label" parent="HUD"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "5"
-
-[node name="PlayerScore" type="Label" parent="HUD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-offset_left = 2.0
-offset_top = -108.0
-offset_right = 19.0
-offset_bottom = -85.0
-text = "51"
-
-[node name="DealerScore" type="Label" parent="HUD"]
-layout_mode = 0
-offset_top = -343.0
-offset_right = 40.0
-offset_bottom = -320.0
-text = "21"
+[node name="CheckShop" type="Button" parent="ResultScreen/VBoxContainer"]
+layout_mode = 2
+text = "Check Shop"
 
 [node name="Cards" type="Node" parent="."]
 
-[node name="GUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="RaiseBet" type="Button" parent="GUI"]
-layout_mode = 0
-offset_left = 181.0
-offset_top = 479.0
-offset_right = 266.0
-offset_bottom = 510.0
-text = "Bet MORE"
-
-[node name="LowerBet" type="Button" parent="GUI"]
-layout_mode = 0
-offset_left = 185.0
-offset_top = 515.0
-offset_right = 267.0
-offset_bottom = 546.0
-text = "Bet less :("
-
-[node name="Hit" type="Button" parent="GUI"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 408.0
-offset_right = 247.0
-offset_bottom = 439.0
-text = "HIT"
-icon_alignment = 1
-expand_icon = true
-
-[node name="Stand" type="Button" parent="GUI"]
-layout_mode = 0
-offset_left = 191.0
-offset_top = 363.0
-offset_right = 252.0
-offset_bottom = 394.0
-text = "STAND"
-
-[node name="CardTest" parent="." instance=ExtResource("2_k6qo2")]
-position = Vector2(841, 226)
-
 [node name="Deck" type="Node" parent="."]
 
-[connection signal="pressed" from="ResultScreen/NewRound" to="." method="_on_new_round_pressed"]
-[connection signal="pressed" from="GUI/RaiseBet" to="." method="_on_raise_bet_pressed"]
-[connection signal="pressed" from="GUI/LowerBet" to="." method="_on_lower_bet_pressed"]
-[connection signal="pressed" from="GUI/Hit" to="." method="_on_hit_pressed"]
-[connection signal="pressed" from="GUI/Stand" to="." method="_on_stand_pressed"]
+[node name="DeckLocation" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(323, 409)
+
+[node name="Phand" type="Node" parent="."]
+
+[connection signal="pressed" from="ResultScreen/VBoxContainer/RaiseBet" to="." method="_on_raise_bet_pressed"]
+[connection signal="pressed" from="ResultScreen/VBoxContainer/LowerBet" to="." method="_on_lower_bet_pressed"]
+[connection signal="pressed" from="ResultScreen/VBoxContainer/NewRound" to="." method="_on_new_round_pressed"]
+[connection signal="pressed" from="ResultScreen/VBoxContainer/CheckShop" to="." method="_on_check_shop_pressed"]

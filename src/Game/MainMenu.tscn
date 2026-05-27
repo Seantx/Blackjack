@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://ceqtbko4kxy32"]
+
+[ext_resource type="Script" uid="uid://hvuami6rpxff" path="res://src/Game/main_menu.gd" id="1_7r1g0"]
+[ext_resource type="Texture2D" uid="uid://3fu0blne1let" path="res://PNG/Cards (large)/card_clubs_K.png" id="2_cqjrg"]
+[ext_resource type="Texture2D" uid="uid://bcufisc64ist8" path="res://Aseprite/StartButton.png" id="3_e2xy7"]
+[ext_resource type="Texture2D" uid="uid://clfhgjcpt7l3d" path="res://Aseprite/ContinueButton.png" id="4_fimr5"]
+[ext_resource type="Texture2D" uid="uid://dpi8l22ytmngu" path="res://Aseprite/HowToButton.png" id="5_u7cqb"]
+[ext_resource type="Texture2D" uid="uid://hji355k00obg" path="res://Aseprite/PlaceHolder.png" id="6_afec1"]
+
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+script = ExtResource("1_7r1g0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_cqjrg")
+expand_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="HBoxContainer/CenterContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("3_e2xy7")
+
+[node name="Continue" type="Button" parent="HBoxContainer/CenterContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_fimr5")
+
+[node name="HowToPlay" type="Button" parent="HBoxContainer/CenterContainer2/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+icon = ExtResource("5_u7cqb")
+vertical_icon_alignment = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("6_afec1")
+
+[connection signal="pressed" from="HBoxContainer/CenterContainer2/VBoxContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="HBoxContainer/CenterContainer2/VBoxContainer/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]

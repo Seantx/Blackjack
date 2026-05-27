@@ -1,0 +1,126 @@
+[gd_scene load_steps=2 format=3 uid="uid://cii2vgppx3ewj"]
+
+[ext_resource type="Script" uid="uid://c74l1q8tginks" path="res://src/Game/game_interface.gd" id="1_rfwbj"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("DealerMoney", "PlayerMoney")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+script = ExtResource("1_rfwbj")
+DealerMoney = NodePath("MarginContainer/VBoxContainer/DealerInterface/DealerMoney")
+PlayerMoney = NodePath("MarginContainer/VBoxContainer/PlayerInterface/PlayerMoney")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/Header"]
+layout_mode = 2
+
+[node name="DealerInterface" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DealerMoney" type="Label" parent="MarginContainer/VBoxContainer/DealerInterface"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/VBoxContainer/DealerInterface"]
+custom_minimum_size = Vector2(113, 0)
+layout_mode = 2
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="MarginContainer/VBoxContainer/DealerInterface"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="ColorRect" parent="MarginContainer/VBoxContainer/DealerInterface"]
+custom_minimum_size = Vector2(700, 140)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.011764706, 0.47058824, 1, 1)
+
+[node name="Pot" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Pot"]
+layout_mode = 2
+
+[node name="DealerWager" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Pot"]
+layout_mode = 2
+
+[node name="PlayerWager" type="Label" parent="MarginContainer/VBoxContainer/Pot"]
+layout_mode = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/VBoxContainer/Pot"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayerInterface" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayerMoney" type="Label" parent="MarginContainer/VBoxContainer/PlayerInterface"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="PlayerButtons" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PlayerInterface"]
+layout_mode = 2
+
+[node name="Hit" type="Button" parent="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons"]
+layout_mode = 2
+text = "Hit"
+
+[node name="Stand" type="Button" parent="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons"]
+layout_mode = 2
+text = "Stand"
+
+[node name="DoubleDown" type="Button" parent="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons"]
+layout_mode = 2
+text = "Double Down"
+
+[node name="Split" type="Button" parent="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons"]
+layout_mode = 2
+text = "Split"
+
+[node name="DeckSpot" type="ColorRect" parent="MarginContainer/VBoxContainer/PlayerInterface"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+color = Color(0.09019608, 1, 1, 1)
+
+[node name="PlayerCards" type="ColorRect" parent="MarginContainer/VBoxContainer/PlayerInterface"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.16470589, 0.69803923, 0.14509805, 1)
+
+[node name="PlayerItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PlayerInterface"]
+layout_mode = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/VBoxContainer/PlayerInterface/PlayerItems"]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons/Hit" to="." method="_on_hit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons/Stand" to="." method="_on_stand_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons/DoubleDown" to="." method="_on_double_down_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/PlayerInterface/PlayerButtons/Split" to="." method="_on_split_pressed"]
